@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5c4384c000094807ba74f9ebcd0b64d8" Name="Diagram1">
+        <EntityTypeShape EntityType="Пример3Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Пример3Model.Вид_оборудования" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Пример3Model.Заказы" Width="1.5" PointX="9.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Пример3Model.Заявка" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Пример3Model.Исполнители" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="Пример3Model.Материалы" Width="1.5" PointX="9.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Пример3Model.Оборудование" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Пример3Model.Отчет" Width="1.5" PointX="9.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Пример3Model.Позиции_заказа" Width="1.5" PointX="12" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Пример3Model.Пользователи" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="Пример3Model.Приоритет_заявки" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Пример3Model.Работники" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Пример3Model.Роли" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Пример3Model.Статус_заявки" Width="1.5" PointX="5.25" PointY="14" IsExpanded="true" />
+        <AssociationConnector Association="Пример3Model.FK_Оборудование_Вид_оборудования" ManuallyRouted="false" />
+        <AssociationConnector Association="Пример3Model.FK_Заказы_Заявка" ManuallyRouted="false" />
+        <AssociationConnector Association="Пример3Model.FK_Позиции_заказа_Заказы" ManuallyRouted="false" />
+        <AssociationConnector Association="Пример3Model.FK_Заявка_Исполнители" ManuallyRouted="false" />
+        <AssociationConnector Association="Пример3Model.FK_Заявка_Оборудование" ManuallyRouted="false" />
+        <AssociationConnector Association="Пример3Model.FK_Заявка_Приоритет_заявки" ManuallyRouted="false" />
+        <AssociationConnector Association="Пример3Model.FK_Заявка_Работники" ManuallyRouted="false" />
+        <AssociationConnector Association="Пример3Model.FK_Заявка_Статус_заявки" ManuallyRouted="false" />
+        <AssociationConnector Association="Пример3Model.FK_Отчет_Заявка" ManuallyRouted="false" />
+        <AssociationConnector Association="Пример3Model.FK_Исполнители_Пользователи" ManuallyRouted="false" />
+        <AssociationConnector Association="Пример3Model.FK_Позиции_заказа_Материалы" ManuallyRouted="false" />
+        <AssociationConnector Association="Пример3Model.FK_Пользователи_Роли" ManuallyRouted="false" />
+        <AssociationConnector Association="Пример3Model.FK_Работники_Пользователи" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

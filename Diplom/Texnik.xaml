@@ -1,0 +1,548 @@
+﻿<Window x:Class="Diplom.Texnik"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Diplom"
+        mc:Ignorable="d"
+        Title="" Height="650" Width="1500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="#005BFF" />
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#828282" Offset="0.7" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="#005BFF" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#f5f5fe" Offset="0.7" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Border" x:Key="BS">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush>
+                        <GradientStop Color="White" Offset="0.7" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <!--Шапка-->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="#005BFF" Grid.RowSpan="1" Width="1500">
+                <Image Width="220" Height="30"></Image>
+                <Label x:Name="Имя_пользователя" Foreground="White" FontSize="20" Content="Имя пользователя" Width="200" Height="35" Margin="20 5"/>
+                <TextBox x:Name="Поиск" Height="30" Width="150" Margin="10 0 0 0" TextChanged="TextBox_TextChanged"/>
+                <!--<ComboBox Height="30" Width="100" Margin="-1540 0 0 0"/>
+                <ComboBox Height="30" Width="100" Margin="-1330 0 0 0"/>-->
+            <WrapPanel Name="wrapDate" Margin="0 10 0 0 ">
+                <Label Width="20" Content="C" Foreground="White"  VerticalAlignment="Center" Margin="20 0 0 0"></Label>
+                <DatePicker x:Name="DpkStart" Margin="10 0 0 0" Height="25" Width="100"></DatePicker>
+                <Label Width="27" Content="ПО" Foreground="White"  VerticalAlignment="Center" Margin="10 0 0 0"></Label>
+                <DatePicker x:Name="DpkEnd" Margin="10 0 0 0" Height="25" Width="100"></DatePicker>
+                <Button x:Name="Применить" Height="30" Width="120" Background="#005BFF" FontSize="20" Margin="20 0 0 0" Foreground="White" Content="Применить" BorderBrush="#005BFF" Click="Применить_Click"/>
+                <Button x:Name="Очистить" Height="30" Width="120" Background="#005BFF" FontSize="20" Margin="20 0 0 0" Foreground="White" Content="Очистить" BorderBrush="#005BFF" Click="Очистить_Click"/>
+            </WrapPanel>
+                <Button x:Name="Выйти" Height="30" Width="70" Background="#005BFF" FontSize="20" Margin="200 0 0 0" Foreground="White" Content="Выйти" BorderBrush="#005BFF" Click="Выйти_Click"/>
+
+            </StackPanel>
+
+        <Grid Grid.Row="2" Background="#f5f5fe">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!--Меню-->
+            <Border Grid.Column="0" Width="300" Height="500" Background="White" CornerRadius="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="75"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Foreground="#005BFF" FontSize="20" TextAlignment="Center" Text="Меню"/>
+                        <Line Stroke="#005BFF" StrokeThickness="2" X1="0" Y1="0" X2="315" Y2="0" Margin="0,10,0,0"></Line>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Width="320">
+                        <Button x:Name="Заявки" Style="{DynamicResource MenuButtonStyle}" Width="271" Height="60" Margin="0,10,20,10" Content="Заявки" FontSize="18"/>
+                        <Button x:Name="Твои_заявки" Style="{DynamicResource MenuButtonStyle}" Width="271" Height="60" Margin="0,10,20,10" Content="Ваши заявки" FontSize="18"/>
+                        <Button x:Name="Техника" Style="{DynamicResource MenuButtonStyle}" Width="271" Height="60" Margin="0,10,20,10" Content="Техника" FontSize="18"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Column="1" Margin="20,20,20,20">
+
+
+                <Button x:Name="Обновить" Margin="-960 -525 0 0"  Height="25" Width="140" Click="Обновить_Click" Background="White" Foreground="#005BFF" Content="Обновить">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="3"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+
+
+                <!--Список заявок-->
+                <Grid x:Name="UsersRequestLayer" Height ="500" Margin="-30,15,-14,22">
+                    <ListView x:Name="Spisok" Canvas.Top="60" Margin="0,-15,0,0" Width="1100" Height ="480" d:ItemsSource="{d:SampleData ItemCount=5}">
+                        <ListView.View>
+                            <GridView >
+                                <GridViewColumn Width="70" Header="Код заявки">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ID}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="130" Header="ФИО">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <WrapPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Работники.Фамилия}" FontSize="15"/>
+                                                <TextBlock Text=" " FontSize="15"></TextBlock>
+                                                <TextBlock Text="{Binding Работники.Имя}" FontSize="15"></TextBlock>
+                                                <TextBlock Text=" " FontSize="15"></TextBlock>
+                                                <TextBlock Text="{Binding Работники.Отчество}" FontSize="15"></TextBlock>
+                                            </WrapPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="90" Header="Устройство">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Оборудование.Вид_оборудования.Вид}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="120" Header="Описание проблемы">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding Описание_проблемы}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="80" Header="Статус">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Статус_заявки.Статус}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="80" Header="Приоритет">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Приоритет_заявки.Приоритет}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="90" Header="Исполнитель">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Исполнители.Фамилия}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="100" Header="Дата подачи">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Дата_начала, StringFormat=dd.MM.yyyy}" FontSize="12"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="100" Header="Дата закрытия">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Дата_окончания, StringFormat=dd.MM.yyyy}" FontSize="12"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="170" Header="">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button  Height="25" Width="140" Click="Edit" Background="White" Foreground="#005BFF" Content="Редактирование">
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="3"/>
+                                                    </Style>
+                                                </Button.Resources>
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+
+
+                <!--Твои заявок-->
+                <Grid x:Name="YourRequests" Visibility="Hidden" Height ="500" Margin="-30,15,-14,22">
+                    <ListView x:Name="YouSpisok" Canvas.Top="60" Margin="0,-15,0,0" Width="1100" Height ="480" d:ItemsSource="{d:SampleData ItemCount=5}">
+                        <ListView.View>
+                            <GridView >
+                                <GridViewColumn Width="70" Header="Код заявки">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ID}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="130" Header="ФИО">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <WrapPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Работники.Фамилия}" FontSize="15"/>
+                                                <TextBlock Text=" " FontSize="15"></TextBlock>
+                                                <TextBlock Text="{Binding Работники.Имя}" FontSize="15"></TextBlock>
+                                                <TextBlock Text=" " FontSize="15"></TextBlock>
+                                                <TextBlock Text="{Binding Работники.Отчество}" FontSize="15"></TextBlock>
+                                            </WrapPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="90" Header="Устройство">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Оборудование.Вид_оборудования.Вид}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="120" Header="Описание проблемы">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding Описание_проблемы}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="80" Header="Статус">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Статус_заявки.Статус}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="80" Header="Приоритет">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Приоритет_заявки.Приоритет}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="100" Header="Дата подачи">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Дата_начала, StringFormat=dd.MM.yyyy}" FontSize="12"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="100" Header="Дата закрытия">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Дата_окончания, StringFormat=dd.MM.yyyy}" FontSize="12"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="170" Header="">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button  Height="25" Width="140" Click="Edit" Background="White" Foreground="#005BFF" Content="Редактирование">
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="3"/>
+                                                    </Style>
+                                                </Button.Resources>
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+
+
+                <!--Закрытие заявки-->
+                <Grid x:Name="RegZaivka" Visibility="Hidden">
+                    <Border Height="450" Margin="0,47,0,47" Style="{StaticResource BS}" CornerRadius="10">
+                        <Canvas Height="400" Margin="90,25,0,25">
+
+                            <Label Margin="250 -20 0 0" Content="Закрытие заявки" Height="35" Width="auto" FontSize="20" Canvas.Left="120"/>
+
+                            <Label Content="Дата оконачания" Margin="90 30 0 0" FontSize="15"/>
+                            <DatePicker x:Name="Дата_оконачания" Margin="270 30 0 0" Height="30" Width="150"/>
+
+                            <Label Content="Статус заявки" Margin="90 80 0 0" FontSize="15"/>
+                            <ComboBox IsEditable="True" x:Name="Статус_заявки" Margin="270 80 0 0" DisplayMemberPath="Статус" SelectedIndex="0" Height="30" Width="150"/>
+
+                            <!--<Label Content="Приоритет" Margin="120 100 0 0" FontSize="15"/>
+                            <ComboBox x:Name="Приоритет" Margin="300 100 0 0" SelectedItem="{Binding Приоритеты}" DisplayMemberPath="Приоритет" SelectedIndex="0" Height="30" Width="150"/>-->
+
+                            <Label Content="Кто выполняет" Margin="520 30 0 0" FontSize="15"/>
+                            <ComboBox IsEditable="True" x:Name="Кто_выполняет" Margin="700 30 0 0" SelectedItem="{Binding Исполнители}" DisplayMemberPath="Фамилия" Height="30" Width="150"/>
+
+                            <Label Content="Описание проблемы" Margin="520 80 0 0" FontSize="15"/>
+                            <TextBox x:Name="Описание_поблемы" Text="{Binding Описание_проблемы}" Margin="700 80 0 0" Height="30" Width="150"/>
+
+                            <!--<Label Content="Причина поломки" Margin="520 100 0 0" FontSize="15"/>
+                            <TextBox x:Name="Причина_поломки" Margin="700 100 0 0" Height="30" Width="150"/>-->
+                        </Canvas>
+                    </Border>
+
+                    <!--Закааз запчастей-->
+                    <ListView x:Name="Zakazi" Margin="0 100 0 0" MaxHeight="200" MaxWidth="800" d:ItemsSource="{d:SampleData ItemCount=5}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="auto" Header="Код заказа">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ID}" FontSize="12"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="auto" Header="Дата заказа">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Дата_заказа, StringFormat=dd.MM.yyyy}" FontSize="12"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="auto" Header="Количество позиций">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Количество_деталей}" FontSize="12"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="auto" Header="Статус">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Статус_заказа}" FontSize="12"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="120">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Height="25" Width="90" Background="White" Foreground="#005BFF" Content="Развернуть" Margin="5" Click="Развернуть_Click">
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="3"/>
+                                                    </Style>
+                                                </Button.Resources>
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="120">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Height="25" Width="90" Background="White" Foreground="#005BFF" Content="Удалить" Margin="5" Click="Удалить_Click">
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="3"/>
+                                                    </Style>
+                                                </Button.Resources>
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+                    <Button x:Name="Заказать" Height="25" Width="90" Margin="950 20 0 0" Background="White" Foreground="#005BFF" Content="Заказать" Click="Заказать_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <Button x:Name="Отчет" Height="25" Width="90" Margin="950 140 0 0" Background="White" Foreground="#005BFF" Content="Отчет" Click="Отчет_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <Button x:Name="Отпр" Height="25" Width="200" Margin="-600 390 0 0" Background="White" Foreground="#005BFF" Content="Отправить" Click="Отпр_Click">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <Button x:Name="Назад" Height="25" Width="200" Margin="600 390 0 0" Background="White" Foreground="#005BFF" Content="Назад" Click="Edit">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="3"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+
+
+                <!--Список технии-->
+                <Grid x:Name="TechincLayer" Visibility="Hidden" Height ="500" Margin="-30,15,-14,22">
+                    <ListView x:Name="TechSpisok" Canvas.Top="60" Margin="0,-15,0,0" Width="1100" Height ="480">
+                        <ListView.View>
+                            <GridView>
+                                <!--<GridViewColumn Width="70" Header="Код заявки">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ID}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>-->
+                                <GridViewColumn Width="150" Header="Индивидуальный номер">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Индивидуальный_номер}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="120" Header="Оборудование">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding Вид_оборудования.Вид}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="120" Header="Описание">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding Описание}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="170" Header="">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button  Height="25" Width="140" Click="Edit2" Background="White" Foreground="#005BFF" Content="История">
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="3"/>
+                                                    </Style>
+                                                </Button.Resources>
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+
+                <!--История техники-->
+                <Grid x:Name="History" Visibility="Hidden" Height ="480" Margin="-30,15,-14,22">
+                    <ListView x:Name="HistoryTech" Canvas.Top="60" Margin="0,0,0,0" Width="1100">
+                        <ListView.View>
+                            <GridView >
+                                <GridViewColumn Width="70" Header="Код отчета">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ID}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="70" Header="Клиент">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <WrapPanel>
+                                                <TextBlock Text="{Binding Заявка.Работники.Фамилия}"></TextBlock>
+                                                <TextBlock Text=" "></TextBlock>
+                                                <TextBlock Text="{Binding Заявка.Работники.Имя}"></TextBlock>
+                                                <TextBlock Text=" "></TextBlock>
+                                                <TextBlock Text="{Binding Заявка.Работники.Отчество}"></TextBlock>
+                                            </WrapPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="70" Header="Исполнитель">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <WrapPanel>
+                                                <TextBlock Text="{Binding Заявка.Исполнители.Фамилия}"></TextBlock>
+                                                <TextBlock Text=" "></TextBlock>
+                                                <TextBlock Text="{Binding Заявка.Исполнители.Имя}"></TextBlock>
+                                                <TextBlock Text=" "></TextBlock>
+                                                <TextBlock Text="{Binding Заявка.Исполнители.Отчество}"></TextBlock>
+                                            </WrapPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="120" Header="Описание проблемы">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding Заявка.Описание_проблемы}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="120" Header="Результат работы">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding Результат_работы}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="100" Header="Дата подачи">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Дата_начала, StringFormat=dd.MM.yyyy}" FontSize="15"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="100" Header="Дата закрытия">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Дата_окончания, StringFormat=dd.MM.yyyy}" FontSize="15"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Window>

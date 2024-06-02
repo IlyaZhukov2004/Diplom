@@ -1,0 +1,171 @@
+﻿<Window x:Class="Diplom.Klient"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Diplom"
+        mc:Ignorable="d"
+        Title="" Height="650" Width="1200" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="#005BFF" />
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Foreground" Value="#005BFF" />
+
+            <!--<Setter Property="Foreground" Value="#D3D3D3" />-->
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#828282" Offset="0.7" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="#005BFF" />
+
+            <!--<Setter Property="Foreground" Value="#D3D3D3" />-->
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#f5f5fe" Offset="0.7" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Border" x:Key="BS">
+            <!--<Setter Property="Foreground" Value="#D3D3D3" />-->
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush>
+                        <GradientStop Color="White" Offset="0.7" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+
+    <Grid>
+        <Grid Background="#f5f5fe">
+            
+            <!--Шапка-->
+            <Canvas Width="1200" Height="40" Margin="0 0 0 600">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="#005BFF" Grid.RowSpan="1" Width="1200">
+                    <Image Width="220" Height="30"></Image>
+                    <Label x:Name="Имя_пользователя" Foreground="White" FontSize="20" Content="Имя пользователя" Width="200" Height="35" Margin="20 10"/>
+                    <Button x:Name="Заявка" Height="30" Width="70" Background="#005BFF" FontSize="20" Foreground="White" Content="Заявка" BorderBrush="#005BFF"/>
+                    <Button x:Name="Выйти" Height="30" Width="70" Background="#005BFF" FontSize="20" Margin="520 0 0 0" Foreground="White" Content="Выйти" BorderBrush="#005BFF" Click="Выйти_Click"/>
+                </StackPanel>
+            </Canvas>
+
+            <!--Список заявок-->
+            <Grid x:Name="ZaivkaSpisok" Margin="20,10,25,0" Background="White" Width="1150" Height="500">
+                <ListView x:Name="Spisok" Canvas.Top="60" Grid.Row="1" Margin="0 0 0 0" Width="1150">
+                    <ListView.View>
+                        <GridView >
+                            <GridViewColumn Width="70" Header="Код заявки">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ID}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="90" Header="Устройство">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Оборудование.Вид_оборудования.Вид}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="120" Header="Описание проблемы">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding Описание_проблемы}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="80" Header="Статус">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Статус_заявки.Статус}"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="130" Header="ФИО">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Исполнители.Фамилия}" FontSize="15"/>
+                                            <TextBlock Text=" " FontSize="15"></TextBlock>
+                                            <TextBlock Text="{Binding Исполнители.Имя}" FontSize="15"></TextBlock>
+                                            <TextBlock Text=" " FontSize="15"></TextBlock>
+                                            <TextBlock Text="{Binding Исполнители.Отчество}" FontSize="15"></TextBlock>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="100" Header="Дата подачи">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Дата_начала, StringFormat=dd.MM.yyyy}" FontSize="12"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="100" Header="Дата закрытия">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Дата_окончания, StringFormat=dd.MM.yyyy}" FontSize="12"></TextBlock>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+
+            <!--Заявка-->
+            <Grid x:Name="NewZaivka"  Visibility="Hidden">
+                <!--Visibility="Hidden"-->
+                <Border Height="450" Width="1000" Margin="0 0 0 0" Style="{StaticResource BS}" CornerRadius="10">
+                    <Canvas Height="300" Width="600">
+                        <Label Margin="150 -100 0 0" Content="Заявка" Height="35" Width="100" FontSize="20" Canvas.Left="120"/>
+
+                        <Label Content="Тип техники" Margin="120 20 0 0" FontSize="15"/>
+                        <!--<ComboBox x:Name="Тип_техники" Margin="300 20 0 0" SelectedValue="Вид_оборудования" DisplayMemberPath="Вид" Height="30" Width="150"/>-->
+                        <ComboBox Name="Тип_техники" Margin="300 20 0 0" Height="30" Width="150" >
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <Run Text="{Binding Индивидуальный_номер}"/>
+                                        <Run Text=" "/>
+                                        <Run Text="{Binding Вид_оборудования.Вид}"/>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <Label Content="Описание проблемы" Margin="120 70 0 0" FontSize="15"/>
+                        <TextBox TextWrapping="Wrap" x:Name="Опис_проб" Margin="120 100 0 0" Height="170" Width="330"/>
+                    </Canvas>
+                </Border>
+
+                <Button x:Name="Отпр" Height="25" Width="300" Margin="-25 350 0 0" Background="White" Foreground="#005BFF" Content="Отправить" Click="Отпр_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="3"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Window>

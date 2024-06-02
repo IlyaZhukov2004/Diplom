@@ -1,0 +1,176 @@
+﻿<Window x:Class="Diplom.Otchet"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Diplom"
+        mc:Ignorable="d"
+        Title="" Height="650" Width="1200" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="#005BFF" />
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Foreground" Value="Black" />
+
+            <!--<Setter Property="Foreground" Value="#D3D3D3" />-->
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#828282" Offset="0.7" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="#005BFF" />
+
+            <!--<Setter Property="Foreground" Value="#D3D3D3" />-->
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#f5f5fe" Offset="0.7" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Border" x:Key="BS">
+            <!--<Setter Property="Foreground" Value="#D3D3D3" />-->
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush>
+                        <GradientStop Color="White" Offset="0.7" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <StackPanel Margin="0 60" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical">
+            <Label Margin="0" Content="Отчет по заявке" Height="35" Width="auto" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="218" Canvas.Top="10"/>
+            <WrapPanel Orientation="Horizontal">
+                <WrapPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <WrapPanel Orientation="Vertical">
+                            <WrapPanel>
+                                <WrapPanel Orientation="Vertical" Grid.Row="0" VerticalAlignment="Top" Canvas.Left="56" Canvas.Top="40" HorizontalAlignment="Center">
+                                    <Label Margin="0 10 0 0 " Height="30" FontSize="15" Content="Код отчета" HorizontalAlignment="Left"/>
+                                    <Label Margin="0 10 0 0 " Height="30" FontSize="15" Content="Код заявки" HorizontalAlignment="Left"/>
+                                    <Label Margin="0 10 0 0 " Height="30" FontSize="15" Content="Статус" HorizontalAlignment="Left"/>
+                                    <Label Margin="0 10 0 0 " Height="30" FontSize="15" Content="Оборудование" HorizontalAlignment="Left"/>
+                                    <Label Margin="0 10 0 0" Height="30" FontSize="15" Content="Серийный номер" HorizontalAlignment="Left"/>
+                                </WrapPanel>
+                                <WrapPanel Orientation="Vertical" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center">
+                                    <TextBox IsReadOnly="True" x:Name="кодОтчета" Text="{Binding ID}" Margin="0 10 0 0" Height="30" Width="120"/>
+                                    <TextBox IsReadOnly="True" x:Name="кодЗаявки" Text="{Binding ID_заявки}" Margin="0 10 0 0" Height="30" Width="120"/>
+                                    <TextBox IsReadOnly="True" x:Name="статус" Text="{Binding Заявка.Статус_заявки.Статус}" Margin="0 10 0 0" Height="30" Width="120"/>
+                                    <TextBox IsReadOnly="True" x:Name="оборудоваание" Text="{Binding Заявка.Оборудование.Вид_оборудования.Вид}" Margin="0 10 0 0" Height="30" Width="120"/>
+                                    <TextBox IsReadOnly="True" x:Name="серийныйНомер" Text="{Binding Заявка.Оборудование.Индивидуальный_номер}" Margin="0 10 0 0" Height="30" Width="120"/>
+                                </WrapPanel>
+                            </WrapPanel>
+                            <WrapPanel Orientation="Vertical">
+                                <Label Margin="0 10 0 0" Height="30" FontSize="15" Content="Описание проблемы" HorizontalAlignment="Left"/>
+                                <TextBox x:Name="описаниеПроблемы" IsReadOnly="True" Text="{Binding Заявка.Описание_проблемы}" Margin="0 10 0 0" Height="100" Width="250"/>
+                            </WrapPanel>
+                        </WrapPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="10">
+                        <WrapPanel>
+                            <WrapPanel Orientation="Vertical" Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center">
+                                <Label Margin="0 10 0 0 " Height="30" FontSize="15" Content="Клиент" HorizontalAlignment="Left"/>
+                                <Label Margin="0 10 0 0 " Height="30" FontSize="15" Content="Исполнитель" HorizontalAlignment="Left"/>
+                                <Label Margin="0 10 0 0 " Height="30" FontSize="15" Content="Дата начала" HorizontalAlignment="Left"/>
+                                <Label Margin="0 10 0 0 " Height="30" FontSize="15" Content="Дата завершения" HorizontalAlignment="Left"/>
+                            </WrapPanel>
+                            <WrapPanel Orientation="Vertical" VerticalAlignment="Top">
+                                <TextBox x:Name="клиент" IsReadOnly="True" Margin="0 10 0 0" Height="30" Width="120"/>
+                                <TextBox x:Name="исполнитель" IsReadOnly="True" Margin="0 10 0 0" Height="30" Width="120"/>
+                                <DatePicker x:Name="начало" IsEnabled="True"  SelectedDate ="{Binding Заявка.Дата_начала}" Foreground="#005BFF" Margin="0 10 0 0" Height="30" Width="120"/>
+                                <DatePicker x:Name="завершение" IsEnabled="True" SelectedDate ="{Binding Заявка.Дата_окончания}" Foreground="#005BFF"  Margin="0 10 0 0" Height="30" Width="120"/>
+                            </WrapPanel>
+                        </WrapPanel>
+                        <WrapPanel Orientation="Vertical">
+                            <Label Margin="0 10 0 0" Height="30" FontSize="15" Content="Реузультат работы" HorizontalAlignment="Left"/>
+                            <TextBox x:Name="результат" Margin="0 10 0 0"  Text="{Binding Результат_работы}" Height="140" Width="250"/>
+                        </WrapPanel>
+                    </StackPanel>
+                </WrapPanel>
+                <StackPanel Orientation="Vertical" Margin="20">
+                    <Label Content="Заказы"/>
+                    <ListView x:Name="Zakazy" Width="390" Height ="auto" MaxHeight="315" d:ItemsSource="{d:SampleData ItemCount=15}">
+                        <ListView.View>
+                            <GridView >
+                                <GridViewColumn Width="30" Header="Код">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ID}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="auto" Header="Деталей">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <WrapPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Количество_деталей}" FontSize="12"/>
+                                            </WrapPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="100" Header="Дата заказа">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Дата_заказа, StringFormat=dd.MM.yyyy}" FontSize="12"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="120">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Height="25" Width="90" Background="White" Foreground="#005BFF" Content="Развернуть" Margin="5" Click="Развернуть_Click">
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="3"/>
+                                                    </Style>
+                                                </Button.Resources>
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </WrapPanel>
+        </StackPanel>
+        <WrapPanel Margin="30" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Button x:Name="Сохранить" Height="30" Width="70" Margin="15" Background="White" Foreground="#005BFF" Content="Сохранить" Click="Отправить_Click" VerticalAlignment="Bottom">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="3"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="Отмена" Height="30" Width="70" Margin="15" Background="White" Foreground="#005BFF" Content="Отменить" Click="Отмена_Click" VerticalAlignment="Bottom">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="3"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="Выгрузка" Height="30" Width="130" Margin="15" Background="White" Foreground="#005BFF" Content="Сформировапть PDF" Click="Выгрузка_Click" VerticalAlignment="Bottom">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="3"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </WrapPanel>
+    </Grid>
+</Window>
